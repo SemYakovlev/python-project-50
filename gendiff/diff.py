@@ -31,17 +31,19 @@ def generate_diff(file_path1, file_path2) -> str:
                         "new_value": js2[key],
                     }
                 )
-    print("{")
+    lines = []
+    lines.append("{")
 
     for item in stubs:
         if item["action"] == "added":
-            print(f"+ {item['key']}: {low_case(item['value'])}")
+            lines.append(f"+ {item['key']}: {low_case(item['value'])}")
         elif item["action"] == "deleted":
-            print(f"- {item['key']}: {low_case(item['value'])}")
+            lines.append(f"- {item['key']}: {low_case(item['value'])}")
         elif item["action"] == "modified":
-            print(f"- {item['key']}: {low_case(item['old_value'])}")
-            print(f"+ {item['key']}: {low_case(item['new_value'])}")
+            lines.append(f"- {item['key']}: {low_case(item['old_value'])}")
+            lines.append(f"+ {item['key']}: {low_case(item['new_value'])}")
         elif item["action"] == "unchanged":
-            print(f"  {item['key']}: {low_case(item['value'])}")
-    print("}")
-    return ""
+            lines.append(f"  {item['key']}: {low_case(item['value'])}")
+    lines.append("}")
+
+    return "\n".join(lines)
