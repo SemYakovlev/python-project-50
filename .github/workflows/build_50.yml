@@ -1,0 +1,45 @@
+name: build_50.yml
+on:
+  push:
+    branches: [main, hw2]
+  pull_request:
+    branches: [main, hw2]   
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+      with:
+        fetch-depth: 0
+        
+    - name: Set up Python 
+      uses: actions/setup-python@v5
+      with:
+        python-version: "3.14"
+        
+    - name: Install dependencies
+      run: |
+        pip install uv
+        make install
+          
+    - name: Run linter
+      run: |
+        make lint
+
+    - name: Run tests
+      run: |
+        make test
+
+    - name: Run test coverage
+      run: |
+        make test-coverage
+        
+    - name: SonarQube Scan
+      uses: SonarSource/sonarqube-scan-action@v6
+      env:
+        SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+      with:
+        args: >
+          -Dsonar.python.coverage.reportPaths=coverage.xml
+          -Dsonar.sources=gendiff
+          -Dsonar.tests=tests
