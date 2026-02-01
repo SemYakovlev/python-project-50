@@ -6,3 +6,10 @@ def test_compare_json_files():
     with open("tests/test_data/expected_result.txt") as f:
         expected_result = f.read()
     assert result == expected_result
+
+
+def test_compare_yaml_files():
+    result = generate_diff("tests/test_data/file1.yml", "tests/test_data/file2.yml")
+    with open("tests/test_data/expected_result.txt") as f:
+        expected_result = f.read()
+    assert result == expected_result
