@@ -13,3 +13,4 @@ def test_compare_yaml_files():
     with open("tests/test_data/expected_result.txt") as f:
         expected_result = f.read()
     assert result == expected_result
+
