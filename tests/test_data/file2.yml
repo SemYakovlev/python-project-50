@@ -1,3 +1,5 @@
 timeout: 20
 verbose: true
 host: hexlet.io
+host2:
+  param: lala

@@ -6,3 +6,4 @@ dist/
 coverage.xml
 *_cache/
 .DS_Store
+seven.cast
