@@ -2,18 +2,19 @@ import json
 
 import yaml
 
-from .formatters.stylish import format_stylish
+from gendiff.formatters.stylish import format_stylish
+
+from gendiff.formatters.plain import format_plain
 
 
 def generate_stubs(dict1, dict2) -> list[dict]:
     united_keys = sorted(dict1.keys() | dict2.keys())
-
     stubs = []
     for key in united_keys:
         if key not in dict1:
             stubs.append(
                 {
-                    "action": "added", 
+                    "action": "added",
                     "key": key, 
                     "value": dict2[key]
                 }
@@ -62,12 +63,15 @@ def define_format(file_path):
         return json.loads(file_data)
     elif file_path.endswith(("yml", "yaml")):
         return yaml.safe_load(file_data)
+    return None
 
 
-def generate_diff(file_path1, file_path2, format_name="stylish"):
+def generate_diff(file_path1, file_path2, format_name):
     dict1 = define_format(file_path1)
     dict2 = define_format(file_path2)
     status = generate_stubs(dict1, dict2)
     if format_name == "stylish":
         return format_stylish(status)
+    elif format_name == "plain":
+        return format_plain(status, prefix='')
     return format_stylish(status)
