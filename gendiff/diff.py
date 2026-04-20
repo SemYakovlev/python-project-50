@@ -2,9 +2,8 @@ import json
 
 import yaml
 
-from gendiff.formatters.stylish import format_stylish
-
 from gendiff.formatters.plain import format_plain
+from gendiff.formatters.stylish import format_stylish
 
 
 def generate_stubs(dict1, dict2) -> list[dict]:
