@@ -66,7 +66,7 @@ def define_format(file_path):
     return None
 
 
-def generate_diff(file_path1, file_path2, format_name):
+def generate_diff(file_path1, file_path2, format_name="stylish"):
     dict1 = define_format(file_path1)
     dict2 = define_format(file_path2)
     status = generate_stubs(dict1, dict2)
