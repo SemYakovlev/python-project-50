@@ -23,5 +23,7 @@ def format_plain(stubs, prefix=''):
                          f"was updated. From {make_string(stub['old_value'])} "
                          f"to {make_string(stub['new_value'])}")
         elif stub['action'] == "nested":
-            lines.append(format_plain(stub["children"], f'{prefix}{stub["key"]}.'))
+            lines.append(
+                format_plain(stub["children"], f'{prefix}{stub["key"]}.')
+            )
     return '\n'.join(lines)
