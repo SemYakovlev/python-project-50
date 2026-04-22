@@ -5,7 +5,9 @@ def make_string(value) -> str:
         return "null"
     if isinstance(value, dict):
         return "[complex value]"
-    return f"'{value}'"
+    if isinstance(value, str):
+        return f"'{value}'"
+    return str(value)
 
 
 def format_plain(stubs, prefix=''):
