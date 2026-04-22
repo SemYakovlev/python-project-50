@@ -21,20 +21,26 @@ def format_stylish(stubs, depth=0) -> str:
 
     for stub in stubs:
         if stub["action"] == "added":
-            lines.append(f"{indent}  + {stub['key']}: {make_line(stub['value'], depth + 1)}")
+            lines.append(f"{indent}  + {stub['key']}: "
+                         f"{make_line(stub['value'], depth + 1)}")
 
         elif stub["action"] == "deleted":
-            lines.append(f"{indent}  - {stub['key']}: {make_line(stub['value'], depth + 1)}")
+            lines.append(f"{indent}  - {stub['key']}: "
+                         f"{make_line(stub['value'], depth + 1)}")
 
         elif stub["action"] == "modified":
-            lines.append(f"{indent}  - {stub['key']}: {make_line(stub['old_value'], depth + 1)}")
-            lines.append(f"{indent}  + {stub['key']}: {make_line(stub['new_value'], depth + 1)}")
+            lines.append(f"{indent}  - {stub['key']}: "
+                         f"{make_line(stub['old_value'], depth + 1)}")
+            lines.append(f"{indent}  + {stub['key']}: "
+                         f"{make_line(stub['new_value'], depth + 1)}")
 
         elif stub["action"] == "unchanged":
-            lines.append(f"{indent}    {stub['key']}: {make_line(stub['value'], depth + 1)}")
+            lines.append(f"{indent}    {stub['key']}: "
+                         f"{make_line(stub['value'], depth + 1)}")
 
         elif stub["action"] == "nested":
-            lines.append(f"{indent}    {stub['key']}: {format_stylish(stub['children'], depth + 1)}")
+            lines.append(f"{indent}    {stub['key']}: "
+                         f"{format_stylish(stub['children'], depth + 1)}")
 
     lines.append(indent + "}")
     return "\n".join(lines)
